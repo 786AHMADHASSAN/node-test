@@ -4,8 +4,8 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin <your-account-id>.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - REPOSITORY_URI=<your-account-id>.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/node-app
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 106412461727.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - REPOSITORY_URI=106412461727.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/docker-mastery
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
@@ -21,6 +21,12 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing imagedefinitions.json file...
       - printf '[{"name":"docker-aws-code-pipeline","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
+      # Debugging
+      - echo "Listing files in workspace..."
+      - ls -l
+      - echo "Showing contents of imagedefinitions.json..."
+      - cat imagedefinitions.json
+
 artifacts:
   files:
     - imagedefinitions.json
