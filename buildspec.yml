@@ -22,7 +22,7 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing imagedefinitions.json file...
-      - printf '[{"name":"docker-master","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
+      - printf '[{"name":"docker-master-2","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
       # Debugging
       - echo "Listing files in workspace..."
       - ls -l
